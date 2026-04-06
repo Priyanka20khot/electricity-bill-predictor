@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction History | FlashVolt</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">FLASHVOLT</div>
+      <div class="sidebar-section-label">Main Menu</div>
+      <a href="dashboard.html" class="sidebar-link">
+        <span class="icon">🏠</span> Dashboard
+      </a>
+      <a href="history.html" class="sidebar-link active">
+        <span class="icon">📜</span> Usage History
+      </a>
+      <div class="sidebar-section-label">Account</div>
+      <div class="sidebar-bottom">
+        <div class="user-chip">
+          <div id="user-avatar" class="user-avatar">U</div>
+          <div>
+            <div id="user-name" class="user-name">Loading...</div>
+            <div id="user-email" class="user-email">...</div>
+          </div>
+        </div>
+        <button id="logout-btn" class="sidebar-link" style="margin-top: 10px; color: var(--danger);">
+          <span class="icon">🚪</span> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <h1 class="page-title">Prediction <span>History</span></h1>
+          <p class="page-sub">Track your energy trends over time</p>
+        </div>
+      </header>
+
+      <!-- History Stats Summary -->
+      <div class="summary-row">
+        <div class="summary-card">
+          <div class="summary-card-label">Total Predictions</div>
+          <div class="summary-card-value blue"><span id="stat-total">0</span></div>
+          <div class="summary-card-sub">In your account history</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-label">Average Bill</div>
+          <div class="summary-card-value yellow"><span id="stat-avg">₹0</span></div>
+          <div class="summary-card-sub">Estimated monthly spend</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-label">Highest Bill</div>
+          <div class="summary-card-value orange"><span id="stat-max">₹0</span></div>
+          <div class="summary-card-sub">Maximum recorded peak</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-label">Lowest Bill</div>
+          <div class="summary-card-value green"><span id="stat-min">₹0</span></div>
+          <div class="summary-card-sub">Minimum consumption record</div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loading-state" class="empty-state" style="display: none;">
+        <div class="loader"></div>
+        <div class="empty-state-text">Fetching history from cloud...</div>
+      </div>
+
+      <!-- Chart Content -->
+      <div id="chart-section" class="card col-full" style="display: none; margin-bottom: 24px;">
+        <h3 class="appliance-catalog-title"><span>📉</span> Consumption & Billing Trends</h3>
+        <div class="chart-container" style="height: 320px;">
+          <canvas id="history-chart"></canvas>
+        </div>
+      </div>
+
+      <!-- Table Content -->
+      <div id="table-wrapper" class="card" style="display: none;">
+        <div class="history-table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Consumption</th>
+                <th>Monthly Bill</th>
+                <th>Tariff Rate</th>
+                <th>Top Appliances</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="history-tbody">
+              <!-- Replaced by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="card empty-state" style="display: none;">
+        <div class="empty-state-icon">📊</div>
+        <div class="empty-state-text">No predictions found yet. Visit the Dashboard to generate one!</div>
+        <a href="dashboard.html" class="btn btn-primary" style="margin-top: 20px;">Go to Dashboard</a>
+      </div>
+
+    </main>
+  </div>
+
+  <script type="module" src="js/history.js"></script>
+</body>
+</html>
