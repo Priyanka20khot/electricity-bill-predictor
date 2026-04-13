@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlashVolt | AI-Powered Electricity Bill Predictor</title>
+  <meta name="description" content="Predict your electricity bill with precision using our TensorFlow.js powered predictor.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+  
+  <nav class="navbar">
+    <div class="logo">
+      <span class="logo-icon">⚡</span> FlashVolt
+    </div>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="https://github.com/priyanka-academic" target="_blank" class="nav-link">Project Github</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="lightning-bg">
+        <span class="bolt" style="left: 10%; animation-duration: 8s;">⚡</span>
+        <span class="bolt" style="left: 30%; animation-duration: 12s; animation-delay: -3s;">⚡</span>
+        <span class="bolt" style="left: 60%; animation-duration: 10s; animation-delay: -5s;">⚡</span>
+        <span class="bolt" style="left: 85%; animation-duration: 15s; animation-delay: -2s;">⚡</span>
+      </div>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="tag"><span>⚡</span> Powered by TensorFlow.js</div>
+          <h1 class="hero-title">Predict your <span class="highlight">Electricity Bill</span> before it arrives.</h1>
+          <p class="hero-desc">
+            Use AI and smart appliance tracking to estimate your monthly energy consumption. Plan ahead, save money, and optimize your usage.
+          </p>
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-num">98%</div>
+              <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">400+</div>
+              <div class="stat-label">Predictions</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">15+</div>
+              <div class="stat-label">Appliances</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="auth-card" style="text-align: center; display: flex; flex-direction: column; justify-content: center; gap: 24px; min-height: 380px;">
+          <div class="tag" style="margin: 0 auto;"><span>🚀</span> Instant Access</div>
+          <h2 style="font-size: 28px; font-weight: 800;">Ready to start?</h2>
+          <p style="color: var(--text-secondary); font-size: 15px; line-height: 1.6;">
+            Access all features of FlashVolt immediately. No sign-up required for our academic preview.
+          </p>
+          <a href="dashboard.html" class="btn btn-primary" style="padding: 18px 36px; font-size: 18px; justify-content: center; box-shadow: 0 10px 30px rgba(245,197,24,0.3);">
+            Launch Predictor ⚡
+          </a>
+          <p style="font-size: 12px; color: var(--text-muted);">
+            Sign-in is currently disabled for this presentation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <h2 class="section-title">Why use FlashVolt?</h2>
+      <p class="section-sub">Combining Data Science with Energy Management</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon yellow">🤖</div>
+          <h3 class="feature-title">AI Estimation</h3>
+          <p class="feature-desc">Our neural network model rectifies raw estimates based on real-world usage patterns and standby loss.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon blue">🏠</div>
+          <h3 class="feature-title">Appliance Tracking</h3>
+          <p class="feature-desc">Select from a catalog of 15+ appliances and customize their daily usage hours.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon purple">📊</div>
+          <h3 class="feature-title">Visual Analytics</h3>
+          <p class="feature-desc">Understand your consumption distribution with beautiful charts and breakdown reports.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon green">💰</div>
+          <h3 class="feature-title">Cost Prediction</h3>
+          <p class="feature-desc">Get an estimated bill amount based on your local tariff rate and unit consumption.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon orange">📉</div>
+          <h3 class="feature-title">Usage Trends</h3>
+          <p class="feature-desc">Save your predictions to Firebase and track your energy usage history over time.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon cyan">💡</div>
+          <h3 class="feature-title">Saving Tips</h3>
+          <p class="feature-desc">Receive personalized energy-saving recommendations based on your highest consumption sources.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="padding: 40px; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 14px;">
+    &copy; 2026 FlashVolt — Academic Project by Priyanka | Built with TensorFlow.js & Firebase
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { redirectIfLoggedIn } from './js/auth.js';
+    // Still redirect to dashboard if the user happens to be logged in via previous session
+    redirectIfLoggedIn();
+  </script>
+</body>
+</html>

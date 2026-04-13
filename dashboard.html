@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | FlashVolt</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <!-- External Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.18.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ML Model Training Overlay -->
+  <div id="training-overlay" class="training-overlay">
+    <div class="loader"></div>
+    <div class="training-text">Initializing AI Model... <span id="training-progress">0</span>%</div>
+    <div class="training-sub">Calibrating neural networks for your predictions</div>
+  </div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">FLASHVOLT</div>
+      
+      <div class="sidebar-section-label">Main Menu</div>
+      <a href="dashboard.html" class="sidebar-link active">
+        <span class="icon">🏠</span> Dashboard
+      </a>
+      <a href="history.html" class="sidebar-link">
+        <span class="icon">📜</span> Usage History
+      </a>
+      
+      <div class="sidebar-section-label">Account</div>
+      <div class="sidebar-bottom">
+        <div class="user-chip">
+          <div id="user-avatar" class="user-avatar">U</div>
+          <div>
+            <div id="user-name" class="user-name">Loading...</div>
+            <div id="user-email" class="user-email">...</div>
+          </div>
+        </div>
+        <button id="logout-btn" class="sidebar-link" style="margin-top: 10px; color: var(--danger);">
+          <span class="icon">🚪</span> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <h1 class="page-title">Welcome back, <span id="greet-name">User</span>! ⚡</h1>
+          <p class="page-sub">Analyze and predict your home energy consumption.</p>
+        </div>
+        <div class="badge badge-yellow">
+          <span id="model-status">Model Ready</span>
+        </div>
+      </header>
+
+      <!-- Summary Row -->
+      <div class="summary-row">
+        <div class="summary-card">
+          <div class="summary-card-label">Avg. Monthly Bill</div>
+          <div class="summary-card-value yellow">₹<span id="stat-avg">0</span></div>
+          <div class="summary-card-sub">From your last 12 predictions</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-label">Last Prediction</div>
+          <div class="summary-card-value blue"><span id="stat-last">0</span> kWh</div>
+          <div class="summary-card-sub">Calculated on your last visit</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-label">Accuracy</div>
+          <div class="summary-card-value green">98.4%</div>
+          <div class="summary-card-sub">AI Model confidence score</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-label">Saving Potential</div>
+          <div class="summary-card-value orange">15%</div>
+          <div class="summary-card-sub">Based on optimized usage</div>
+        </div>
+      </div>
+
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+        
+        <!-- Left Column: Catalog and List -->
+        <div class="card">
+          <h3 class="appliance-catalog-title"><span>📦</span> Appliance Catalog</h3>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Click to add appliances to your home</p>
+          
+          <div id="catalog-grid" class="catalog-grid">
+            <!-- Catalog items injected by JS -->
+          </div>
+
+          <div class="divider"></div>
+
+          <h3 class="appliance-catalog-title"><span>🏠</span> My Home Setup</h3>
+          <div id="appliances-list" class="appliances-list" style="margin-top: 15px;">
+            <div class="empty-state">
+              <div class="empty-state-icon">➕</div>
+              <div class="empty-state-text">Start by adding appliances from the catalog</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="settings-row">
+            <div class="form-group">
+              <label>State / Tariff Type</label>
+              <select id="tariff-type">
+                <option value="6.5">Domestic (0-200 Units) - ₹6.5/kWh</option>
+                <option value="8.2">Domestic (200-400 Units) - ₹8.2/kWh</option>
+                <option value="9.5">Commercial - ₹9.5/kWh</option>
+                <option value="11">Industrial - ₹11/kWh</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Billing Period</label>
+              <select id="billing-period">
+                <option value="30">Monthly (30 Days)</option>
+                <option value="60">Bi-Monthly (60 Days)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="predict-btn-wrapper">
+            <button id="predict-btn" class="btn-predict" disabled>
+              <span>⚡</span> Generate AI Prediction
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Results & Charts -->
+        <div id="result-panel" class="result-panel">
+          <div class="card" style="margin-bottom: 24px;">
+            <h3 class="appliance-catalog-title"><span>🎯</span> Prediction Results</h3>
+            
+            <div class="result-highlight">
+              <div class="result-main">
+                <div class="result-main-label">Estimated Bill</div>
+                <div class="result-main-value">₹<span id="res-bill">0</span></div>
+                <div class="result-main-unit">Based on AI-corrected consumption</div>
+              </div>
+              <div class="result-secondary">
+                <div class="result-secondary-label">Predicted Units</div>
+                <div class="result-secondary-value"><span id="res-units">0</span></div>
+                <div class="result-secondary-unit">kWh (AI Corrected)</div>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <canvas id="usage-chart"></canvas>
+            </div>
+
+            <div class="divider" style="margin: 24px 0 12px;"></div>
+            
+            <p style="font-size: 11px; color: var(--text-muted); text-align: center;">
+              *Standard calculation units: <span id="res-base">0</span> kWh. 
+              AI Correction Factor (Loss/Peak): <span id="res-peak">1.0</span>x
+            </p>
+          </div>
+
+          <!-- Energy Saving Tips -->
+          <div class="card">
+            <h3 class="appliance-catalog-title"><span>💡</span> Smart Saving Tips</h3>
+            <div id="tips-list" class="tips-list" style="margin-top: 15px;">
+              <!-- Tips injected by JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
